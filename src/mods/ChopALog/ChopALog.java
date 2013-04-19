@@ -9,8 +9,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="ChopALog", name="ChopALog", version="0.2.b76", dependencies = "after:TerraFirmaCraft")
-@NetworkMod(clientSideRequired = true, serverSideRequired = true, versionBounds = "[0.2.b76]")
+@Mod(modid="ChopALog", name="ChopALog", version="0.3.b76", dependencies = "after:TerraFirmaCraft")
+@NetworkMod(clientSideRequired = true, serverSideRequired = true, versionBounds = "[0.3.b76]")
 public class ChopALog {
 	@Instance("ChopALog")
 	public static ChopALog instance;

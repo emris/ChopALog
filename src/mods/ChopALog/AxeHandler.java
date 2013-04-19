@@ -70,7 +70,12 @@ public class AxeHandler {
 							world.spawnEntityInWorld(en2);
 							world.spawnEntityInWorld(en3);
 							
-//							s.damageItem(6, p);
+							s.damageItem(1, p);
+							if(s.getItemDamage() == s.getMaxDamage() || s.getItemDamage() == 0) {
+								p.renderBrokenItemStack(s);
+								p.worldObj.playSoundAtEntity(p, "random.break", 0.8F, 0.8F + p.worldObj.rand.nextFloat() * 0.4F);
+								p.destroyCurrentEquippedItem();
+							}
 						}
 					}
 				}
