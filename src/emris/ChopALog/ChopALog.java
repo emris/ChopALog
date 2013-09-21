@@ -1,4 +1,4 @@
-/*
+/**
  *  Copyright (C) 2013  emris
  *  https://github.com/emris/ChopALog
  *
@@ -25,7 +25,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="ChopALog", name="ChopALog", version="0.4.b77", dependencies = "after:TerraFirmaCraft")
+@Mod(modid="chopalog", name="ChopALog", version="0.4.b77", dependencies = "after:TerraFirmaCraft")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true, versionBounds = "[0.4.b77]")
 public class ChopALog {
 	@Instance("ChopALog")
