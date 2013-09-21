@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package mods.ChopALog;
+package emris.ChopALog;
 
 import java.util.Random;
 
@@ -34,13 +34,27 @@ public class AxeHandler {
 	@ForgeSubscribe
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.action == Action.LEFT_CLICK_BLOCK) {
-			int[] axes = new int[] {TFCItems.IgInAxe.itemID, TFCItems.SedAxe.itemID, TFCItems.IgExAxe.itemID,
-									TFCItems.MMAxe.itemID, TFCItems.BismuthAxe.itemID, TFCItems.BismuthBronzeAxe.itemID,
-									TFCItems.BlackBronzeAxe.itemID, TFCItems.BlackSteelAxe.itemID, TFCItems.BlueSteelAxe.itemID,
-									TFCItems.BronzeAxe.itemID, TFCItems.CopperAxe.itemID, TFCItems.WroughtIronAxe.itemID,
-									TFCItems.RedSteelAxe.itemID, TFCItems.RoseGoldAxe.itemID, TFCItems.SteelAxe.itemID,
-									TFCItems.TinAxe.itemID, TFCItems.ZincAxe.itemID};
-			
+			// You have a random chance of failing
+			Random rand = new Random();
+			if(rand.nextInt(5) > 0)
+				return;
+
+			int[] axes = new int[] {
+				TFCItems.IgInAxe.itemID,
+				TFCItems.SedAxe.itemID,
+				TFCItems.IgExAxe.itemID,
+				TFCItems.MMAxe.itemID,
+				TFCItems.BismuthBronzeAxe.itemID,
+				TFCItems.BlackBronzeAxe.itemID,
+				TFCItems.BlackSteelAxe.itemID,
+				TFCItems.BlueSteelAxe.itemID,
+				TFCItems.BronzeAxe.itemID,
+				TFCItems.CopperAxe.itemID,
+				TFCItems.WroughtIronAxe.itemID,
+				TFCItems.RedSteelAxe.itemID,
+				TFCItems.SteelAxe.itemID,
+			};
+
 			EntityPlayer p = e.entityPlayer;
 			ItemStack s = p.inventory.getCurrentItem();
 
@@ -52,7 +66,7 @@ public class AxeHandler {
 			
 			if ( isAxe ) {
 				MovingObjectPosition mop = PlayerUtils.getTargetBlock(p);
-				if (mop != null) {
+				if (mop != null && mop.sideHit == 1) {
 					World world = p.worldObj;
 					int X = mop.blockX;
 					int Y = mop.blockY;
@@ -73,21 +87,17 @@ public class AxeHandler {
 							
 							ItemStack stack1 = new ItemStack(TFCItems.SinglePlank, 1, meta);
 							ItemStack stack2 = new ItemStack(TFCItems.SinglePlank, 1, meta);
-							ItemStack stack3 = new ItemStack(TFCItems.SinglePlank, 1, meta);
 							
 							EntityItem en1 = new EntityItem(world, X+1, Y, Z, stack1);
 							EntityItem en2 = new EntityItem(world, X-1, Y, Z, stack2);
-							EntityItem en3 = new EntityItem(world, X+1, Y, Z-1, stack3);
 							
 							en1.delayBeforeCanPickup = 6;
 							en2.delayBeforeCanPickup = 6;
-							en3.delayBeforeCanPickup = 6;
 							
 							world.spawnEntityInWorld(en1);
 							world.spawnEntityInWorld(en2);
-							world.spawnEntityInWorld(en3);
 							
-							s.damageItem(1, p);
+							s.damageItem(10, p);
 							if(s.getItemDamage() == s.getMaxDamage() || s.getItemDamage() == 0) {
 								p.renderBrokenItemStack(s);
 								p.worldObj.playSoundAtEntity(p, "random.break", 0.8F, 0.8F + p.worldObj.rand.nextFloat() * 0.4F);
